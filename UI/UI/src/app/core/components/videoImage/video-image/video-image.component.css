@@ -1,0 +1,60 @@
+ .mainVideoImage{
+    margin: 3px;
+    background-color: #f0f0f0;
+    width: 600px;
+    height: 400px;
+    border: 1px solid black;
+    display: inline-block;
+    text-align: center;
+    align-content: center;
+    transition: box-shadow 0.3s ease-in-out;
+    box-shadow: 0 0 0 0 gray;
+    border-radius: 10px;
+    vertical-align: top;
+}
+.mainVideoImage:hover{
+  box-shadow: 0 0 15px 10px gray
+}
+.mainVideoImageContainer{
+    text-align: center;
+} 
+
+.videoName {
+    font-size: 33px;
+}
+
+.buttonContainer {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    bottom: 40px;
+    position: relative;
+}
+
+.mainVideoImage:hover .buttonContainer {
+    opacity: 1;
+}
+
+.playButton,
+.deleteButton {
+    margin: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(0, 123, 255, 0.7);
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.playButton:hover,
+.deleteButton:hover {
+    background-color: rgba(0, 123, 255, 1);
+}
+
+.AddMainVider {
+    background-color: black;
+    background-image: url('../../../../../assets/images/add-50.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100px;
+}

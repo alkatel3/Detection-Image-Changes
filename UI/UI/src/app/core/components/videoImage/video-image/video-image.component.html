@@ -1,0 +1,17 @@
+<app-button-toggle (changeDispllayStyleEvent)="changeDispllayStyleEvent($event)"></app-button-toggle>
+<div class="mainVideoImageContainer" [style.text-align]="dispayStyle">
+   @for (video of videos; track $index) {
+     <div  class="mainVideoImage">
+        <!-- <div class="videoName">{{ video.name }}</div> -->
+        <video id="{{video.id}}" width="600" height="400">
+            <source src="{{video.src}}" type="video/mp4">
+        </video>
+        <div class="buttonContainer">
+            <button (click)="PlayOrPauseVideo(video.id)" class="playButton">Play</button>
+            <button (click)="DeleteVideo()" class="deleteButton">Delete</button>
+        </div>
+    </div>   
+} 
+    <div (click)="AddVideo()"  class="mainVideoImage AddMainVider">
+    </div>
+</div>
