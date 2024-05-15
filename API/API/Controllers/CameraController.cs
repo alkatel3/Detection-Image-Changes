@@ -1,40 +1,53 @@
-﻿using API.Model;
+﻿using API.Managers.Abstraction;
+using API.Model;
+using Emgu.CV;
+using Emgu.CV.CvEnum;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
+using System.ComponentModel;
+using System.Net;
+using System.Text.RegularExpressions;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/Camera")]
     [ApiController]
     public class CameraController : ControllerBase
     {
-        [HttpGet]
+        private readonly ICameraManager _manager;
+
+        public CameraController(ICameraManager manager)
+        {
+            _manager = manager;
+        }
+
+        [HttpGet("GetCameras")]
         public IEnumerable<Camera> GetCameras()
         {
-            var res = new List<Camera>
-            {
-                new Camera
-                {
-                    ID = Guid.NewGuid(),
-                    Name ="Camera 1",
-                    Src = "../../../../../assets/images/mov_bbb.mp4"
-                },
-                new Camera
-                {
-                    ID = Guid.NewGuid(),
-                    Name ="Camera 2",
-                    Src = "../../../../../assets/images/mov_bbb.mp4"
-                },
-                new Camera
-                {
-                    ID = Guid.NewGuid(),
-                    Name ="Camera 3",
-                    Src = "../../../../../assets/images/mov_bbb.mp4"
-                },
-            };
+            return _manager.GetCameras();
+        }
 
-            return res;
+        [HttpGet("{port}")]
+        public async Task StartCameraStream(int port, CancellationToken cancellationToken)
+        {
+            Response.Headers.Add("Content-Type", "text/event-stream");
+
+            _manager.StartCapture(port);
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                await Task.Delay(100);
+                var processedImage = _manager.GetProccedImage();
+                await Response.WriteAsync($"data: {processedImage}\n\n");
+                await Response.Body.FlushAsync();
+            }
+            _manager.StopCapture();
+        }
+
+        [HttpPost]
+        public async void StopCameraStream()
+        {
+            _manager.StopCapture();
         }
     }
 }

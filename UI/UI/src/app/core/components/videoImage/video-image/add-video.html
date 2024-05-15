@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Add new camera</h2>
+<mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Camera name</mat-label>
+      <input matInput [(ngModel)]="data.name">
+    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Video</mat-label>
+    <input type="file" (change)="onFileSelected($event)">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

@@ -1,17 +1,46 @@
 <app-button-toggle (changeDispllayStyleEvent)="changeDispllayStyleEvent($event)"></app-button-toggle>
+@if(showLoadingImage){
+    <img src="../../../../../assets/images/icons8-loading.gif" style="display: block; height: 50px; width: 50px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+}
 <div class="mainVideoImageContainer" [style.text-align]="dispayStyle">
-   @for (video of videos; track $index) {
-     <div  class="mainVideoImage">
+    @if(currentCamera!=undefined){
+        <div>
+    <div class="mainVideoImage" style="width: 1500px; height: 1000px;">
+        @if(showLoadingCameraImage){
+            <img src="../../../../../assets/images/icons8-loading.gif" style="display: block; margin: auto; height: 50px; width: 50px; position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%);">
+        }
         <!-- <div class="videoName">{{ video.name }}</div> -->
-        <video id="{{video.id}}" width="600" height="400">
+        <!-- <video id="{{video.port}}" width="600" height="400">
             <source src="{{video.src}}" type="video/mp4">
-        </video>
-        <div class="buttonContainer">
-            <button (click)="PlayOrPauseVideo(video.id)" class="playButton">Play</button>
+        </video> -->
+        <img id="{{currentCamera.port}}" src="data:image/jpeg;base64,{{currentCamera.src}}" style="height: 100%; width: 100%;">
+        
+    <button id="stopButton-{{currentCamera.port}}" class="btn">Stop</button>
+        <!-- <div class="buttonContainer">
+            <button (click)="PlayOrPauseVideo(camera.port)" class="playButton">Play</button>
             <button (click)="DeleteVideo()" class="deleteButton">Delete</button>
-        </div>
-    </div>   
-} 
-    <div (click)="AddVideo()"  class="mainVideoImage AddMainVider">
+        </div> -->
     </div>
+    </div>   
+}
+   @for (camera of cameras; track $index) {
+     @if(camera.port!=currentCamera?.port){
+        <div class="mainVideoImage" (click)="PlayVideo(camera)">
+        <!-- <div class="videoName">{{ video.name }}</div> -->
+        <!-- <video id="{{video.port}}" width="600" height="400">
+            <source src="{{video.src}}" type="video/mp4">
+        </video> -->
+        <img id="{{camera.port}}" src="data:image/jpeg;base64,{{camera.src}}" width="600" height="400">
+        <!-- <div class="buttonContainer">
+            <button (click)="PlayOrPauseVideo(camera.port)" class="playButton">Play</button>
+            <button (click)="DeleteVideo()" class="deleteButton">Delete</button>
+        </div> -->
+    </div>   
+        }
+    } 
+    <!-- <div (click)="AddVideo()"  class="mainVideoImage AddMainVider">
+    </div> -->
+    <!-- <img [src]="imageUrl" alt="Camera Image">
+    <button id="stopButton" class="btn">Stop</button> -->
+
 </div>

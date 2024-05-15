@@ -1,4 +1,10 @@
 
+using API.DAL;
+using API.Managers;
+using API.Managers.Abstraction;
+using Emgu.CV;
+using Microsoft.EntityFrameworkCore;
+
 namespace API
 {
     public class Program
@@ -13,6 +19,12 @@ namespace API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddScoped<ICameraManager, CameraManager>();
+            builder.Services.AddScoped<IHttpStreamWriter, HttpStreamWriter>();
+            //builder.Services.AddSingleton<VideoCapture>();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowOrigin",

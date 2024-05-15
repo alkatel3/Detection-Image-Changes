@@ -1,10 +1,10 @@
 export class Camera {
-  id: string;
+  port: number;
   name: string;
   src: string;
 
-  constructor(id: string, name: string, src: string) {
-    this.id = id;
+  constructor(port: number, name: string, src: string) {
+    this.port = port;
     this.name = name;
     this.src = src;
   }
