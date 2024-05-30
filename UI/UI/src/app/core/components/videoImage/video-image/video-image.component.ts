@@ -60,7 +60,7 @@ export class VideoImageComponent
   }
 
   streamVideo(port: number): void {
-    const eventSource = new EventSource(`https://localhost:7027/Camera/${port}`);
+    const eventSource = new EventSource(`https://localhost:7027/Camera/StartCameraStream?port=${port}`);
 
     eventSource.onmessage = (event) => {
       

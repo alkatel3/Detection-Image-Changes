@@ -5,14 +5,15 @@ import { NavbarComponent } from "./core/components/navbar/navbar.component";
 import { VideoImageComponent } from "./core/components/videoImage/video-image/video-image.component";
 import { ApiService } from './core/services/ApiService/api-service.service';
 import { HttpClientModule } from '@angular/common/http';
+import { DetectedChangesComponent } from "./core/components/detectedChanges/detected-changes/detected-changes.component";
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, NavbarComponent, VideoImageComponent, CommonModule, HttpClientModule ],
-    providers:[ApiService]
+    providers: [ApiService],
+    imports: [RouterOutlet, NavbarComponent, VideoImageComponent, CommonModule, HttpClientModule, DetectedChangesComponent]
 })
 export class AppComponent {
   title = 'UI';

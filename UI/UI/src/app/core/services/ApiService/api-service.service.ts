@@ -7,30 +7,36 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
+  ClearImageHistory() {
+    return this.http.delete<Camera>(`https://localhost:7027/Camera/ClearImageHistory/`);
+  }
+  getDetectedChanges(port: any) {
+    return this.http.get<Camera>(`https://localhost:7027/Camera/GetDetectedChanges/${port}`);
+  }
 
   constructor(private http: HttpClient) { }
 
   getCameras(): Observable<any> {
     return this.http.get<Camera>('https://localhost:7027/Camera/GetCameras');
   }  
-  postCamera(): Observable<any> {
-    return this.http.post<any>('https://localhost:7027/Camera/', {});
-  }
-  getStream(): Observable<string> {
-    return new Observable(observer => {
-      const eventSource = new EventSource('https://localhost:7027/Camera/');
+  // postCamera(): Observable<any> {
+  //   return this.http.post<any>('https://localhost:7027/Camera/', {});
+  // }
+  // getStream(): Observable<string> {
+  //   return new Observable(observer => {
+  //     const eventSource = new EventSource('https://localhost:7027/Camera/');
 
-      eventSource.onmessage = event => {
-        observer.next(event.data);
-      };
+  //     eventSource.onmessage = event => {
+  //       observer.next(event.data);
+  //     };
 
-      eventSource.onerror = error => {
-        observer.error('Stream error');
-      };
+  //     eventSource.onerror = error => {
+  //       observer.error('Stream error');
+  //     };
 
-      return () => {
-        eventSource.close();
-      };
-    });
-  }
+  //     return () => {
+  //       eventSource.close();
+  //     };
+  //   });
+  // }
 }

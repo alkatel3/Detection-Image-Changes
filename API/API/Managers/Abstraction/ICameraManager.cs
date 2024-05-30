@@ -4,9 +4,11 @@ namespace API.Managers.Abstraction
 {
     public interface ICameraManager
     {
-        void StartCapture(int port);
+        void StartCapture(int port, HttpResponse response);
         void StopCapture();
-        string GetProccedImage();
+        void GetProccedImage();
         List<Camera> GetCameras();
+        List<DetectedChange> GetDetectedChangesAsync(int port);
+        void ClearImageHistory();
     }
 }

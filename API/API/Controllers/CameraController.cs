@@ -28,26 +28,49 @@ namespace API.Controllers
             return _manager.GetCameras();
         }
 
-        [HttpGet("{port}")]
+        [HttpGet("StartCameraStream")]
         public async Task StartCameraStream(int port, CancellationToken cancellationToken)
         {
-            Response.Headers.Add("Content-Type", "text/event-stream");
-
-            _manager.StartCapture(port);
-            while (!cancellationToken.IsCancellationRequested)
+            try
             {
-                await Task.Delay(100);
-                var processedImage = _manager.GetProccedImage();
-                await Response.WriteAsync($"data: {processedImage}\n\n");
-                await Response.Body.FlushAsync();
+                Response.Headers.Add("Content-Type", "text/event-stream");
+
+                _manager.StartCapture(port, Response);
+                while (!cancellationToken.IsCancellationRequested)
+                {
+                    //await Task.Delay(100);
+                    //var processedImage = _manager.GetProccedImage();
+                    //await Response.WriteAsync($"data: {processedImage}\n\n");
+                    //await Response.Body.FlushAsync();
+                }
             }
-            _manager.StopCapture();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally {
+                _manager.StopCapture();
+            }
+            
         }
 
         [HttpPost]
         public async void StopCameraStream()
         {
             _manager.StopCapture();
+        }
+
+
+        [HttpGet("GetDetectedChanges/{port}")]
+        public List<DetectedChange> GetDetectedChanges(int port)
+        {
+            return _manager.GetDetectedChangesAsync(port);
+        }
+
+        [HttpDelete("ClearImageHistory")]
+        public void ClearImageHistory()
+        {
+            _manager.ClearImageHistory();
         }
     }
 }
