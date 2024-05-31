@@ -36,7 +36,7 @@ namespace API.Controllers
                 Response.Headers.Add("Content-Type", "text/event-stream");
 
                 _manager.StartCapture(port, Response);
-                while (!cancellationToken.IsCancellationRequested)
+                while (!cancellationToken.IsCancellationRequested && _manager.IsStreaming)
                 {
                     //await Task.Delay(100);
                     //var processedImage = _manager.GetProccedImage();

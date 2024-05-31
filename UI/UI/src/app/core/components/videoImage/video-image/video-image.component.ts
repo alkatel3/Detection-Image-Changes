@@ -28,6 +28,7 @@ export interface DialogData {
 
 export class VideoImageComponent 
 {
+
   cameras : Camera[] =[]
   currentCamera: Camera | undefined;
   private streamSubscription: Subscription | undefined;
@@ -75,6 +76,7 @@ export class VideoImageComponent
     function closeEventSource(){
             eventSource.close();
             button?.removeEventListener('click', closeEventSource)
+
     }
   }
 dispayStyle: any;
@@ -93,6 +95,10 @@ PlayVideo(camera: Camera) {
   this.cdr.detectChanges();
   this.streamVideo(camera.port)
  }
+ stopStream() {
+  this.currentCamera =undefined
+  this.cdr.detectChanges();
+}
 }
 
 

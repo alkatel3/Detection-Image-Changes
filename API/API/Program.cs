@@ -1,5 +1,7 @@
 
 using API.DAL;
+using API.DAL.Abstraction;
+using API.DAL.Repository;
 using API.Managers;
 using API.Managers.Abstraction;
 using Emgu.CV;
@@ -21,6 +23,7 @@ namespace API
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<ICameraManager, CameraManager>();
             builder.Services.AddScoped<IHttpStreamWriter, HttpStreamWriter>();

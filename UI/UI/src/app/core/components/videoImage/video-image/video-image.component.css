@@ -11,6 +11,8 @@
     box-shadow: 0 0 0 0 gray;
     border-radius: 10px;
     vertical-align: top;
+    
+    position: relative;
 }
 .mainVideoImage:hover{
   box-shadow: 0 0 15px 10px gray
@@ -57,4 +59,24 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100px;
+}
+
+.buttonWrapper {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    width: 40px; /* Adjust as needed */
+    height: 40px; /* Adjust as needed */
+    background-color: #fff; /* Background color of the circle */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonWrapper .btn {
+    background: none;
+    border: none;
+    font-size: 16px; /* Adjust as needed */
+    cursor: pointer;
 }

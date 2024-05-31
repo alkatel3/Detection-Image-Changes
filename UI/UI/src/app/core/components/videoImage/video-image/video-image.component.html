@@ -14,8 +14,8 @@
             <source src="{{video.src}}" type="video/mp4">
         </video> -->
         <img id="{{currentCamera.port}}" src="data:image/jpeg;base64,{{currentCamera.src}}" style="height: 100%; width: 100%;">
-        
-    <button id="stopButton-{{currentCamera.port}}" class="btn">Stop</button>
+        <div class="buttonWrapper ">
+    <button id="stopButton-{{currentCamera.port}}" (click)="stopStream()" class="btn">X</button></div>
         <!-- <div class="buttonContainer">
             <button (click)="PlayOrPauseVideo(camera.port)" class="playButton">Play</button>
             <button (click)="DeleteVideo()" class="deleteButton">Delete</button>

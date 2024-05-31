@@ -2,9 +2,8 @@
 
 namespace API.Model
 {
-    public class Camera
+    public class Camera :BaseEntity
     {
-        public Guid ID { get; set; }
         public string Name { get; set; } = null!;
         public string Src { get; set; } = null!;
         public int Port { get; set; }

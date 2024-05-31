@@ -18,6 +18,7 @@ using Emgu.CV.Ocl;
 using Emgu.CV.BgSegm;
 using Emgu.CV.Cuda;
 using Emgu.CV.Dai;
+using API.DAL.Abstraction;
 
 namespace API.Managers
 {
@@ -34,12 +35,13 @@ namespace API.Managers
         private int frameCounter = 0;
         private int updatePeriod = 150; // Період перевірки (кадри
         Mat diffFrame = new Mat();
-        public ApplicationDbContext _dbContext { get; set; }
+        public IUnitOfWork _unitOfWork { get; set; }
 
+        public bool IsStreaming => streamVideo;
 
-        public CameraManager(ApplicationDbContext dbContext)
+        public CameraManager(IUnitOfWork unitOfWork)
         {
-            _dbContext = dbContext;
+            _unitOfWork = unitOfWork;
         }
 
         public List<Camera> GetCameras()
@@ -69,17 +71,18 @@ namespace API.Managers
         }
         public List<DetectedChange> GetDetectedChangesAsync(int port)
         {
-           return _dbContext.DetectedChanges.OrderByDescending(i =>i.Happened).ToList();
+           return _unitOfWork.DetectedChanges.GetAll().OrderByDescending(i => i.Happened).ToList();
+            //_dbContext.DetectedChanges.OrderByDescending(i =>i.Happened).ToList();
         }
 
         public void StartCapture(int port, HttpResponse response)
         {
-           // capture = new VideoCapture(port);
+            capture = new VideoCapture(port);
             _response = response;
             //capture = new VideoCapture(@"C:/Users/Dell/Downloads/Explosion_Fighting_Shooting.mp4");
             //capture = new VideoCapture(@"C:/Users/Dell/Downloads/pieces-in-ocean-sea.webm");
             //capture = new VideoCapture(@"C:/Users/Dell/Downloads/Road_Cars_Traffic.mp4");
-           capture = new VideoCapture(@"C:/Users/Dell/Downloads/videoplayback.mp4");
+           //capture = new VideoCapture(@"C:/Users/Dell/Downloads/videoplayback.mp4");
             frameSize = new Size(capture.Width,capture.Height);
             streamVideo = true;
             capture.ImageGrabbed += Capture_ImageGrabbed;
@@ -111,9 +114,11 @@ namespace API.Managers
 
         public void ClearImageHistory()
         {
-            var allEntities = _dbContext.DetectedChanges.ToList();
-            _dbContext.DetectedChanges.RemoveRange(allEntities);
-            _dbContext.SaveChanges();
+            var allEntities = _unitOfWork.DetectedChanges.GetAll();//_dbContext.DetectedChanges.ToList();
+            _unitOfWork.DetectedChanges.RemoveRange(allEntities);
+            _unitOfWork.Save();
+            //_dbContext.DetectedChanges.RemoveRange(allEntities);
+            //_dbContext.SaveChanges();
         }
 
         public async void GetProccedImage()
@@ -199,22 +204,36 @@ namespace API.Managers
             if (detected)
             {
                 var stringImage = MatToBase64String(frame);
-                _dbContext.DetectedChanges.Add(new DetectedChange
+                _unitOfWork.DetectedChanges.Add(new DetectedChange
                 {
                     ID = Guid.NewGuid(),
                     Happened = DateTime.Now,
                     Image = stringImage
                 });
-                _dbContext.SaveChanges();
+                //stringImage = MatToBase64String(diffFrame);
+                //_unitOfWork.DetectedChanges.Add(new DetectedChange
+                //{
+                //    ID = Guid.NewGuid(),
+                //    Happened = DateTime.Now,
+                //    Image = stringImage
+                //});
+                _unitOfWork.Save();
+                //_dbContext.DetectedChanges.Add(new DetectedChange
+                //{
+                //    ID = Guid.NewGuid(),
+                //    Happened = DateTime.Now,
+                //    Image = stringImage
+                //});
+                //_dbContext.SaveChanges();
 
-                stringImage = MatToBase64String(diffFrame);
-                _dbContext.DetectedChanges.Add(new DetectedChange
-                {
-                    ID = Guid.NewGuid(),
-                    Happened = DateTime.Now,
-                    Image = stringImage
-                });
-                _dbContext.SaveChanges();
+                //stringImage = MatToBase64String(diffFrame);
+                //_dbContext.DetectedChanges.Add(new DetectedChange
+                //{
+                //    ID = Guid.NewGuid(),
+                //    Happened = DateTime.Now,
+                //    Image = stringImage
+                //});
+                //_dbContext.SaveChanges();
             }
         }
     }
