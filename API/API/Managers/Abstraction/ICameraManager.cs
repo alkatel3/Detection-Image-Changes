@@ -8,7 +8,6 @@ namespace API.Managers.Abstraction
 
         void StartCapture(int port, HttpResponse response);
         void StopCapture();
-        void GetProccedImage();
         List<Camera> GetCameras();
         List<DetectedChange> GetDetectedChangesAsync(int port);
         void ClearImageHistory();

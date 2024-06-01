@@ -26,7 +26,6 @@ namespace API
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<ICameraManager, CameraManager>();
-            builder.Services.AddScoped<IHttpStreamWriter, HttpStreamWriter>();
             //builder.Services.AddSingleton<VideoCapture>();
             builder.Services.AddCors(options =>
             {

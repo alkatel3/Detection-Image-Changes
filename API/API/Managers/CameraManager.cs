@@ -87,7 +87,7 @@ namespace API.Managers
             streamVideo = true;
             capture.ImageGrabbed += Capture_ImageGrabbed;
             capture.Start();
-            capture.Set(CapProp.Fps, 60);
+            capture.Set(CapProp.Fps, 100);
             avgFrame = new Mat(frameSize, DepthType.Cv8U, 1);
         }
         private void Capture_ImageGrabbed(object? sender, EventArgs e)
@@ -121,7 +121,7 @@ namespace API.Managers
             //_dbContext.SaveChanges();
         }
 
-        public async void GetProccedImage()
+        private async void GetProccedImage()
         {
             try
             {
@@ -140,28 +140,27 @@ namespace API.Managers
                 CvInvoke.GaussianBlur(frame, smoothFrame, new System.Drawing.Size(3, 3), 0);
                 CvInvoke.CvtColor(smoothFrame, smoothFrame, ColorConversion.Bgr2Gray);
                 CvInvoke.EqualizeHist(smoothFrame, smoothFrame);
-                    if (frameCounter <= updatePeriod)
+                if (frameCounter <= updatePeriod)
+                {
+                    if (avgFrame.NumberOfChannels != 1)
                     {
-                        if (avgFrame.NumberOfChannels != 1)
-                        {
-                            CvInvoke.CvtColor(avgFrame, avgFrame, ColorConversion.Bgr2Gray);
-                        }
-                        CvInvoke.AddWeighted(smoothFrame,/* 1.0 / updatePeriod*/0.001, avgFrame, /*1.0 - 1.0 / updatePeriod*/0.999, 0, avgFrame);
-                    return;
+                        CvInvoke.CvtColor(avgFrame, avgFrame, ColorConversion.Bgr2Gray);
                     }
+                    CvInvoke.AddWeighted(smoothFrame, 1.0 / updatePeriod, avgFrame, 1.0 - 1.0 / updatePeriod, 0, avgFrame);
+                return;
+                }
 
-                    CvInvoke.AbsDiff(smoothFrame, avgFrame, diffFrame);
-                    CvInvoke.Threshold(diffFrame, diffFrame, 30, 255, ThresholdType.Binary);
+                CvInvoke.AbsDiff(smoothFrame, avgFrame, diffFrame);
+                CvInvoke.Threshold(diffFrame, diffFrame, 100, 255, ThresholdType.Binary);
                 //FilterNoise
                 CvInvoke.MorphologyEx(diffFrame, diffFrame, MorphOp.Open,
-                    Mat.Ones(21, 21, DepthType.Cv8U, 1), new Point(-1, -1), 1,
-                    BorderType.Reflect, new MCvScalar(0));
-
-                Mat kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new System.Drawing.Size(31, 31), new System.Drawing.Point(-1, -1));
-                    CvInvoke.Dilate(diffFrame, diffFrame, kernel, new System.Drawing.Point(-1, -1), 2, BorderType.Constant, new MCvScalar(0));
-                    BoundingBoxes();
-                    avgFrame = smoothFrame.Clone();
-                    frameCounter = 0;
+                Mat.Ones(21, 21, DepthType.Cv8U, 1), new Point(-1, -1), 1,
+                BorderType.Reflect, new MCvScalar(0));
+                Mat kernel = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new System.Drawing.Size(51, 51), new System.Drawing.Point(-1, -1));
+                CvInvoke.Dilate(diffFrame, diffFrame, kernel, new System.Drawing.Point(-1, -1), 2, BorderType.Constant, new MCvScalar(0));
+                BoundingBoxes();
+                avgFrame = smoothFrame.Clone();
+                frameCounter = 0;
             }
             catch (Exception ex)
             {
