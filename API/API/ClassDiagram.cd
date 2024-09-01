@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="API.Model.DetectedChange">
+    <Position X="18" Y="12.5" Width="1.5" />
+    <InheritanceLine Type="API.Model.BaseEntity" ManuallyRouted="true">
+      <Path>
+        <Point X="20.5" Y="9.853" />
+        <Point X="20.5" Y="11.397" />
+        <Point X="18.75" Y="11.397" />
+        <Point X="18.75" Y="12.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\DetectedChange.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="API.Controllers.CameraController">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAQAAEAAAAABAAAAgAI=</HashCode>
+      <FileName>Controllers\CameraController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="API.DAL.Repository.CameraRepository">
+    <Position X="11.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAL\Repository\CameraRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="API.DAL.Repository.DetectedChangeRepository">
+    <Position X="13.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAL\Repository\DetectedChangeRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="API.DAL.Repository.Repository&lt;TEntity&gt;">
+    <Position X="12.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAgAAAAAAAAABAAAAABAAAAAAAAAAACgAAAIAAAAA=</HashCode>
+      <FileName>DAL\Repository\Repository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.775" />
+  </Class>
+  <Class Name="API.DAL.Repository.UnitOfWork" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIgAACBABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAL\Repository\UnitOfWork.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="API.DAL.ApplicationDbContext">
+    <Position X="15.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAL\ApplicationDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="API.Model.BaseEntity">
+    <Position X="19.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\BaseEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="API.Model.Camera">
+    <Position X="21" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAEAAAAAEQACAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Model\Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="API.Managers.CameraManager" BaseTypeListCollapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ADAAAAAAACAKACQAAiCAAAAAggACEEUAAgAAAQgAggA=</HashCode>
+      <FileName>Managers\CameraManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="API.DAL.Abstraction.IRepository&lt;TEntity&gt;">
+    <Position X="12.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAABAAAAABAAAAAAAAAAAAgAAAIAAAAA=</HashCode>
+      <FileName>DAL\Abstraction\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="API.DAL.Abstraction.IUnitOfWork">
+    <Position X="14.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAACAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAL\Abstraction\IUnitOfWork.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="API.Managers.Abstraction.ICameraManager">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ADAAAAAAAAAIAAAAACAAAAAAAAAAAEAAAAAAAAAAgAA=</HashCode>
+      <FileName>Managers\Abstraction\ICameraManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

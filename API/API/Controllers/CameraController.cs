@@ -1,13 +1,6 @@
 ﻿using API.Managers.Abstraction;
 using API.Model;
-using Emgu.CV;
-using Emgu.CV.CvEnum;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
-using System.ComponentModel;
-using System.Net;
-using System.Text.RegularExpressions;
 
 namespace API.Controllers
 {
@@ -38,10 +31,6 @@ namespace API.Controllers
                 _manager.StartCapture(port, Response);
                 while (!cancellationToken.IsCancellationRequested && _manager.IsStreaming)
                 {
-                    //await Task.Delay(100);
-                    //var processedImage = _manager.GetProccedImage();
-                    //await Response.WriteAsync($"data: {processedImage}\n\n");
-                    //await Response.Body.FlushAsync();
                 }
             }
             catch (Exception ex)
